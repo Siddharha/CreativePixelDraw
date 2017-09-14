@@ -15,7 +15,7 @@ import android.view.View;
 
 public class DrawView  extends View implements View.OnTouchListener, ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 16;
+    private static final int GRID_SIZE = 32;
     private static final String TAG = "DrawView";
 
     private short[][] grid;
