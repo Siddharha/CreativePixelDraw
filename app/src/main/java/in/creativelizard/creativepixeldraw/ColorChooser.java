@@ -51,7 +51,7 @@ public class ColorChooser extends View implements View.OnTouchListener {
             return;
         }
 
-        canvas.drawColor(0xFF000000);
+        canvas.drawColor(0xFF0000);
 
         // draw each of the color swatches in the palette
         for (int i = 0; i < DrawView.COLOR_MAP.length; i++) {
