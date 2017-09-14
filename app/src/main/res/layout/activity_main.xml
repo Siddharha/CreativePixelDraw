@@ -13,7 +13,11 @@
         android:id="@+id/flCanv"
         android:background="#c2c2c2"
         android:layout_weight="1">
-
+<in.creativelizard.creativepixeldraw.DrawView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawView"
+    android:layout_margin="10dp"/>
     </FrameLayout>
 
     <FrameLayout

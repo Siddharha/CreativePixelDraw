@@ -1,14 +1,13 @@
 package in.creativelizard.creativepixeldraw;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.widget.FrameLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DrawView.DrawViewListener{
 
+    private DrawView mDrawView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-
+        mDrawView = (DrawView) findViewById(R.id.drawView);
+        mDrawView.setListener(this);
+        mDrawView.setTouchEnabled(true);
     }
 
     @Override
@@ -27,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                /*dv.touch_start(x, y);
-                dv.invalidate();*/
+                mDrawView.setMacroPixel((int) x, (int) y, (short)Color.WHITE);
                 break;
             case MotionEvent.ACTION_MOVE:
               /*  dv.touch_move(x, y);
@@ -40,5 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onDrawEvent(int gridX, int gridY, short colorIndex) {
+
     }
 }
