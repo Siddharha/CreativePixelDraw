@@ -19,29 +19,9 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
         mDrawView = (DrawView) findViewById(R.id.drawView);
         mDrawView.setListener(this);
         mDrawView.setTouchEnabled(true);
+        ((ColorChooser) findViewById(R.id.colorChooser))
+                .setDrawView(((DrawView) findViewById(R.id.drawView)));
     }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mDrawView.setMacroPixel((int) x, (int) y, (short)Color.WHITE);
-                break;
-            case MotionEvent.ACTION_MOVE:
-              /*  dv.touch_move(x, y);
-                dv.invalidate();*/
-                break;
-            case MotionEvent.ACTION_UP:
-               /* dv.touch_up();
-                dv.invalidate();*/
-                break;
-        }
-        return true;
-    }
-
     @Override
     public void onDrawEvent(int gridX, int gridY, short colorIndex) {
 
