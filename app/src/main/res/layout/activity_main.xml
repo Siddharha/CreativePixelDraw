@@ -14,8 +14,9 @@
         android:background="#c2c2c2"
         android:layout_weight="1">
 <in.creativelizard.creativepixeldraw.DrawView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:id="@+id/drawView"
     android:layout_margin="10dp"/>
     </FrameLayout>
@@ -23,10 +24,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#c2c2c2"
         android:layout_weight="2">
         <in.creativelizard.creativepixeldraw.ColorChooser
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:id="@+id/colorChooser"/>
     </FrameLayout>
 </LinearLayout>
