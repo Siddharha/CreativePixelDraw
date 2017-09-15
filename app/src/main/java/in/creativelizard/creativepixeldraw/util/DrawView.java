@@ -1,14 +1,20 @@
 package in.creativelizard.creativepixeldraw.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 /**
  * Created by siddhartha on 14/9/17.
@@ -30,6 +36,8 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     // If years of classic has taught me anything, these
     // are enough colors for anything. Anything at all.
     public static final int COLOR_MAP[] = {0xFFFFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00, 0xFF8e5757, 0xFF005f00};
+
+
 
     // Interface for the Activity to know when a square is drawn
     public interface DrawViewListener {

@@ -44,6 +44,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btnClearDrawing"
                 android:text="Clear"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnSaveDrawing"
+                android:text="Save"/>
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
