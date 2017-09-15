@@ -1,7 +1,8 @@
-package in.creativelizard.creativepixeldraw;
+package in.creativelizard.creativepixeldraw.util;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
@@ -77,7 +78,6 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         // Assume this is a square (as we will make it so in onMeasure()
         // and figure out how many pixels there are.
         mHeightInPixels = this.getHeight();
@@ -92,9 +92,12 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
                 mRect.right = sp(((float) (x + 1)) / GRID_SIZE);
                 mRect.bottom = sp(((float) (y + 1)) / GRID_SIZE);
 
+
                 canvas.drawRect(mRect, mPaint);
             }
         }
+
+
 
         if (keepAnimating) {
             invalidate();

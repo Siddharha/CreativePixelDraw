@@ -1,4 +1,4 @@
-package in.creativelizard.creativepixeldraw;
+package in.creativelizard.creativepixeldraw.util;
 
 import android.content.Context;
 import android.graphics.Canvas;

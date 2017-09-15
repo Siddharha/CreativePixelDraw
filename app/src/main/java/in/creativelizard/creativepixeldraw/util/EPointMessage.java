@@ -1,4 +1,4 @@
-package in.creativelizard.creativepixeldraw;
+package in.creativelizard.creativepixeldraw.util;
 
 /**
  * Created by siddhartha on 14/9/17.

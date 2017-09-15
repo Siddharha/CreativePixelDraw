@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="in.creativelizard.creativepixeldraw.MainActivity">
+    tools:context="in.creativelizard.creativepixeldraw.activities.MainActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -13,23 +13,60 @@
         android:id="@+id/flCanv"
         android:background="#c2c2c2"
         android:layout_weight="1">
-<in.creativelizard.creativepixeldraw.DrawView
+<in.creativelizard.creativepixeldraw.util.DrawView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:layout_gravity="center"
     android:id="@+id/drawView"
     android:layout_margin="10dp"/>
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#c2c2c2"
-        android:layout_weight="2">
-        <in.creativelizard.creativepixeldraw.ColorChooser
+        <in.creativelizard.creativepixeldraw.util.DrawViewGrid
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:id="@+id/colorChooser"/>
+            android:id="@+id/drawViewGrid"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
     </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#455a64"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnClearDrawing"
+                android:text="Clear"/>
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/swShowGrid"
+                android:checked="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="Show Grid"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#455a64"
+            android:layout_weight="1"
+           >
+            <in.creativelizard.creativepixeldraw.util.ColorChooser
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="#44000000"
+                android:id="@+id/colorChooser"/>
+        </FrameLayout>
+    </LinearLayout>
+
 </LinearLayout>
