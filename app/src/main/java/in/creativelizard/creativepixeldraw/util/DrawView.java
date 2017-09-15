@@ -29,7 +29,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     // These are the four colors provided for painting.
     // If years of classic has taught me anything, these
     // are enough colors for anything. Anything at all.
-    public static final int COLOR_MAP[] = {0xFFFFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00};
+    public static final int COLOR_MAP[] = {0xFFFFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00, 0xFF8e5757, 0xFF005f00};
 
     // Interface for the Activity to know when a square is drawn
     public interface DrawViewListener {

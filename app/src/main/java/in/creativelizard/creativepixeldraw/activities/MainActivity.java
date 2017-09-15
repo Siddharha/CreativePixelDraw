@@ -3,9 +3,13 @@ package in.creativelizard.creativepixeldraw.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import in.creativelizard.creativepixeldraw.util.ColorChooser;
 import in.creativelizard.creativepixeldraw.util.ConstantClass;
@@ -21,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private Button btnClearDrawing;
     private SwitchCompat swShowGrid;
     private Pref _pref;
+    ScaleGestureDetector scaleGestureDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

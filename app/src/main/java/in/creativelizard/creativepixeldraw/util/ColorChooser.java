@@ -69,7 +69,7 @@ public class ColorChooser extends View implements View.OnTouchListener {
 
             if (mListener.getColor() == i) {
                 // Blue border
-                p.setColor(0xFF81D4FA);
+                p.setColor(0xFFc2c2c2);
                 canvas.drawRect(mRect, p);
 
                 // Color square
