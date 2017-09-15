@@ -31,55 +31,74 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:orientation="horizontal">
+        android:background="#455a64"
+        android:orientation="vertical">
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#455a64"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-            <Button
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnClearDrawing"
-                android:text="Clear"/>
-            <Button
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnClearDrawing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Clear" />
+
+                <Button
+                    android:id="@+id/btnSaveDrawing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/swlockDraw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="Lock Draw"
+                    android:textColor="#ffffff" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/swShowGrid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:checked="true"
+                    android:text="Show Grid"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btnSaveDrawing"
-                android:text="Save"/>
-            <android.support.v7.widget.SwitchCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:textColor="#ffffff"
-                android:id="@+id/swlockDraw"
-                android:text="Lock Draw"/>
-            <android.support.v7.widget.SwitchCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/swShowGrid"
-                android:checked="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:text="Show Grid"
-                android:textColor="#ffffff"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#455a64">
+
+                <in.creativelizard.creativepixeldraw.util.ColorChooser
+                    android:id="@+id/colorChooser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="#44000000" />
+            </FrameLayout>
         </LinearLayout>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#455a64"
-            android:layout_weight="1"
-           >
-            <in.creativelizard.creativepixeldraw.util.ColorChooser
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#44000000"
-                android:id="@+id/colorChooser"/>
-        </FrameLayout>
     </LinearLayout>
+
 
 </LinearLayout>
