@@ -3,6 +3,7 @@ package in.creativelizard.creativepixeldraw.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -20,12 +21,15 @@ import in.creativelizard.creativepixeldraw.util.Pref;
 
 public class MainActivity extends AppCompatActivity implements DrawView.DrawViewListener {
 
+    private static final String TAG = "response";
     private DrawView mDrawView;
     private DrawViewGrid drawViewGrid;
     private Button btnClearDrawing;
     private SwitchCompat swShowGrid;
     private Pref _pref;
-    ScaleGestureDetector scaleGestureDetector;
+    int GLOBAL_TOUCH_POSITION_X = 0;
+    int GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
+    FrameLayout flCanv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
 
     private void initialize() {
         _pref = new Pref(this);
+        flCanv = (FrameLayout)findViewById(R.id.flCanv);
         btnClearDrawing = (Button)findViewById(R.id.btnClearDrawing);
         swShowGrid = (SwitchCompat)findViewById(R.id.swShowGrid);
         mDrawView = (DrawView) findViewById(R.id.drawView);
