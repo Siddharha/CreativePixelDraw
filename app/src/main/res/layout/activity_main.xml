@@ -5,27 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/llMain"
+    android:background="#c2c2c2"
     tools:context="in.creativelizard.creativepixeldraw.activities.MainActivity">
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/flMainCanvCont"
+    android:layout_weight="1">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/flCanv"
-        android:background="#c2c2c2"
+        android:layout_margin="5dp"
         android:layout_weight="1">
-<in.creativelizard.creativepixeldraw.util.DrawView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_margin="5dp"
-    android:id="@+id/drawView"/>
+        <in.creativelizard.creativepixeldraw.util.DrawView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/drawView"/>
         <in.creativelizard.creativepixeldraw.util.DrawViewGrid
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:id="@+id/drawViewGrid"
             android:layout_gravity="center"/>
     </FrameLayout>
+</FrameLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +41,7 @@
         android:orientation="vertical">
 
         <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/zoomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp" />

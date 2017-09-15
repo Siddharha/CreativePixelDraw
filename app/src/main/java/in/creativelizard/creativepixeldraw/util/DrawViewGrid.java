@@ -34,7 +34,7 @@ public class DrawViewGrid extends View implements ColorChooser.ColorChooserListe
 
     // Some temporary variables so we don't allocate while rendering
     private Rect mRect = new Rect();
-    private Paint mPaint = new Paint();
+    public Paint mPaint = new Paint();
 
     private Boolean keepAnimating = false;
 
@@ -73,7 +73,7 @@ public class DrawViewGrid extends View implements ColorChooser.ColorChooserListe
         for (int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
                 mPaint.setStyle(Paint.Style.STROKE);
-                mPaint.setStrokeWidth(3);
+                mPaint.setStrokeWidth(5);
                 mPaint.setColor(Color.GRAY);
 
                 mRect.top = sp(((float) y) / GRID_SIZE);

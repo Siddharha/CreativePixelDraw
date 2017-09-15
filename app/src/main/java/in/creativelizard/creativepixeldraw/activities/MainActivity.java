@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.File;
@@ -38,8 +40,10 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private SwitchCompat swShowGrid;
     private Pref _pref;
     private SwitchCompat swlockDraw;
-    FrameLayout flCanv;
-
+    private LinearLayout llMain;
+    private FrameLayout flCanv,flMainCanvCont;
+    private SeekBar zoomBar;
+    float dX, dY;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +115,63 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
 
             }
         });
+
+        zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                flCanv.setScaleX(1+(i));
+                flCanv.setScaleY(1+(i));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        flCanv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+if(swlockDraw.isChecked()) {
+    switch (event.getAction() & MotionEvent.ACTION_MASK) {
+        case MotionEvent.ACTION_DOWN:
+            dX = v.getX() - event.getRawX();
+            dY = v.getY() - event.getRawY();
+            break;
+        case MotionEvent.ACTION_MOVE:
+
+
+            v.setY(event.getRawY() + dY);
+            v.setX(event.getRawX() + dX);
+            // .x(event.getRawX() + dX)
+            break;
+        case MotionEvent.ACTION_UP:
+                        /*if(v.getY()<(flMainCanvCont.getY()-v.getHeight()+10)){
+                            v.setY(flMainCanvCont.getY()-v.getHeight()+10);
+                        }else if((v.getY()+v.getHeight())>(flMainCanvCont.getY()+flMainCanvCont.getHeight())){
+                            v.setY((flMainCanvCont.getY()/90)+flMainCanvCont.getHeight()-v.getHeight());
+                        } else {
+                            v.setY(v.getY());
+                        }*/
+
+            return true;
+
+        default:
+            return false;
+    }
+    return true;
+}else {
+    return false;
+}
+            }
+        });
+
     }
 
     public void saveImage() {
@@ -150,6 +211,9 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
 
     private void initialize() {
         _pref = new Pref(this);
+        llMain = (LinearLayout)findViewById(R.id.llMain);
+        flMainCanvCont = (FrameLayout)findViewById(R.id.flMainCanvCont);
+        zoomBar = (SeekBar)findViewById(R.id.zoomBar);
         swlockDraw = (SwitchCompat) findViewById(R.id.swlockDraw);
         flCanv = (FrameLayout)findViewById(R.id.flCanv);
         btnClearDrawing = (Button)findViewById(R.id.btnClearDrawing);
