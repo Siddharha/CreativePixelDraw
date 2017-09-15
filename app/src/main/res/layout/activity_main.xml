@@ -47,6 +47,14 @@
             <android.support.v7.widget.SwitchCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="#ffffff"
+                android:id="@+id/swlockDraw"
+                android:text="Lock Draw"/>
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/swShowGrid"
                 android:checked="true"
                 android:layout_marginRight="5dp"

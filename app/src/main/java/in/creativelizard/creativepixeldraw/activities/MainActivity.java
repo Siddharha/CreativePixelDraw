@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private Button btnClearDrawing;
     private SwitchCompat swShowGrid;
     private Pref _pref;
-    int GLOBAL_TOUCH_POSITION_X = 0;
-    int GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
+    private SwitchCompat swlockDraw;
     FrameLayout flCanv;
 
     @Override
@@ -47,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
         }else {
             drawViewGrid.setVisibility(View.GONE);
             swShowGrid.setChecked(false);
+        }
+
+        if(swlockDraw.isChecked()){
+            mDrawView.setTouchEnabled(false);
+        }else {
+            mDrawView.setTouchEnabled(true);
         }
     }
 
@@ -72,10 +77,17 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
               //  mDrawView.refrash();
             }
         });
+        swlockDraw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mDrawView.setTouchEnabled(!b);
+            }
+        });
     }
 
     private void initialize() {
         _pref = new Pref(this);
+        swlockDraw = (SwitchCompat) findViewById(R.id.swlockDraw);
         flCanv = (FrameLayout)findViewById(R.id.flCanv);
         btnClearDrawing = (Button)findViewById(R.id.btnClearDrawing);
         swShowGrid = (SwitchCompat)findViewById(R.id.swShowGrid);
