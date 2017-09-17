@@ -28,6 +28,7 @@ import in.creativelizard.creativepixeldraw.util.ConstantClass;
 import in.creativelizard.creativepixeldraw.util.DrawView;
 import in.creativelizard.creativepixeldraw.R;
 import in.creativelizard.creativepixeldraw.util.DrawViewGrid;
+import in.creativelizard.creativepixeldraw.util.GridView;
 import in.creativelizard.creativepixeldraw.util.Pref;
 
 public class MainActivity extends AppCompatActivity implements DrawView.DrawViewListener {
@@ -219,7 +220,7 @@ if(swlockDraw.isChecked()) {
         btnClearDrawing = (Button)findViewById(R.id.btnClearDrawing);
         swShowGrid = (SwitchCompat)findViewById(R.id.swShowGrid);
         mDrawView = (DrawView) findViewById(R.id.drawView);
-        drawViewGrid = (DrawViewGrid)findViewById(R.id.drawViewGrid);
+        drawViewGrid = (DrawViewGrid) findViewById(R.id.drawViewGrid);
         btnSaveDrawing = (Button)findViewById(R.id.btnSaveDrawing);
         mDrawView.setListener(this);
         mDrawView.setTouchEnabled(true);

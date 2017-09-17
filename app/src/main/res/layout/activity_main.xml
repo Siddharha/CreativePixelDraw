@@ -10,25 +10,28 @@
     tools:context="in.creativelizard.creativepixeldraw.activities.MainActivity">
 <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/flMainCanvCont"
     android:layout_weight="1">
+
     <FrameLayout
+        android:id="@+id/flCanv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/flCanv"
         android:layout_margin="5dp"
-        android:layout_weight="1">
+        android:layout_gravity="center">
+
         <in.creativelizard.creativepixeldraw.util.DrawView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/drawView"/>
+            android:id="@+id/drawView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+
         <in.creativelizard.creativepixeldraw.util.DrawViewGrid
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/drawViewGrid"
-            android:layout_gravity="center"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>
 

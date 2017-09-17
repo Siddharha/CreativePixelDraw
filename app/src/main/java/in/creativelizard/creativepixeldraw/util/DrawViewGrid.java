@@ -10,20 +10,22 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import static android.R.attr.lines;
+
 /**
  * Created by siddhartha on 14/9/17.
  */
 
-public class DrawViewGrid extends View implements ColorChooser.ColorChooserListener {
+public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 32;
+    private static final int GRID_SIZE = 16;
     private static final String TAG = "DrawViewGrid";
 
     private short[][] grid;
     private double mHeightInPixels;
     private short mSelectedColor = 1;
-    private int lastGridX = -1;
-    private int lastGridY = -1;
+    private int cellHeight;
+    private int cellWidth;
 
     // These are the four colors provided for painting.
     // If years of classic has taught me anything, these
@@ -40,10 +42,28 @@ public class DrawViewGrid extends View implements ColorChooser.ColorChooserListe
 
     public DrawViewGrid(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
 
+    }
+    public DrawViewGrid(Context context) {
+        super(context);
+        init();
+    }
+    public DrawViewGrid(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
+    }
+    private void init() {
+        mHeightInPixels = this.getHeight();
         grid = new short[GRID_SIZE][GRID_SIZE];
         setAnimating(true);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setColor(Color.BLACK);
+        cellWidth = super.getWidth() / GRID_SIZE;
+        cellHeight = super.getHeight() / GRID_SIZE;
+
     }
+
 
     public void setAnimating(Boolean val) {
         keepAnimating = val;
@@ -67,13 +87,13 @@ public class DrawViewGrid extends View implements ColorChooser.ColorChooserListe
         super.onDraw(canvas);
         // Assume this is a square (as we will make it so in onMeasure()
         // and figure out how many pixels there are.
-        mHeightInPixels = this.getHeight();
+      /*  mHeightInPixels = this.getHeight();
 
         // Now, draw with 0,0 in upper left and 9,9 in lower right
         for (int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
                 mPaint.setStyle(Paint.Style.STROKE);
-                mPaint.setStrokeWidth(5);
+                mPaint.setStrokeWidth(1);
                 mPaint.setColor(Color.GRAY);
 
                 mRect.top = sp(((float) y) / GRID_SIZE);
@@ -83,10 +103,23 @@ public class DrawViewGrid extends View implements ColorChooser.ColorChooserListe
 
 
                 canvas.drawRect(mRect, mPaint);
+               // canvas.drawLine(x,y,32f,32f);
             }
+        }*/
+
+        mHeightInPixels = this.getHeight();
+        canvas.drawColor(Color.TRANSPARENT);
+
+        for (int i = 0; i < GRID_SIZE; i++)
+        {
+            canvas.drawLine(0, i * cellHeight, getWidth(), i * cellHeight,
+                    mPaint);
         }
-        if (keepAnimating) {
-            invalidate();
+
+        for (int i = 0; i < GRID_SIZE; i++)
+        {
+            canvas.drawLine(i * cellWidth, 0, i * cellWidth, getHeight(),
+                    mPaint);
         }
     }
 
@@ -131,5 +164,14 @@ public class DrawViewGrid extends View implements ColorChooser.ColorChooserListe
     @Override
     public short getColor() {
         return mSelectedColor;
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        cellWidth = super.getWidth() / GRID_SIZE;
+        cellHeight = super.getHeight() / GRID_SIZE;
+
+        invalidate();
     }
 }

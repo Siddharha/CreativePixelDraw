@@ -22,9 +22,8 @@ import java.io.FileOutputStream;
 
 public class DrawView  extends View implements View.OnTouchListener, ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 32;
+    private static final int GRID_SIZE = 16;
     private static final String TAG = "DrawView";
-
     private short[][] grid;
     private double mHeightInPixels;
     private short mSelectedColor = 1;
@@ -43,6 +42,29 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     public interface DrawViewListener {
         void onDrawEvent(int gridX, int gridY, short colorIndex);
     }
+    public DrawView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+
+    }
+    public DrawView(Context context) {
+        super(context);
+        init();
+    }
+    public DrawView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init();
+    }
+    private void init() {
+        grid = new short[GRID_SIZE][GRID_SIZE];
+
+        setOnTouchListener(this);
+
+        setAnimating(true);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setColor(Color.BLACK);
+
+    }
 
     // Some temporary variables so we don't allocate while rendering
     private Rect mRect = new Rect();
@@ -51,16 +73,6 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     private Boolean keepAnimating = false;
 
     private boolean touchEnabled;
-
-    public DrawView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        grid = new short[GRID_SIZE][GRID_SIZE];
-
-        setOnTouchListener(this);
-
-        setAnimating(true);
-    }
 
     public void setListener(DrawViewListener listener) {
         mListener = listener;
@@ -213,4 +225,5 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     public short getColor() {
         return mSelectedColor;
     }
+
 }
