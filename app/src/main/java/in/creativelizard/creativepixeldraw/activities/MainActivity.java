@@ -216,7 +216,7 @@ if(swlockDraw.isChecked()) {
                             @Override
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                                // changeBackgroundColor(selectedColor);
-                               COLOR_MAP[1] = selectedColor;
+                               COLOR_MAP[mDrawView.getColor()] = selectedColor;
                                 colorChooser.invalidate();
                             }
                         })
