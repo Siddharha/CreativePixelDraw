@@ -18,7 +18,7 @@ import static android.R.attr.lines;
 
 public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 64;
+    private static final int GRID_SIZE = 32;
     private static final String TAG = "DrawViewGrid";
 
     private short[][] grid;
@@ -35,7 +35,6 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
 
 
     // Some temporary variables so we don't allocate while rendering
-    private Rect mRect = new Rect();
     public Paint mPaint = new Paint();
 
     private Boolean keepAnimating = false;
@@ -57,7 +56,7 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
         mHeightInPixels = this.getHeight();
         grid = new short[GRID_SIZE][GRID_SIZE];
         setAnimating(true);
-        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.BLACK);
         cellWidth = super.getWidth() / GRID_SIZE;
         cellHeight = super.getHeight() / GRID_SIZE;
@@ -172,6 +171,6 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
         cellWidth = super.getWidth() / GRID_SIZE;
         cellHeight = super.getHeight() / GRID_SIZE;
 
-        invalidate();
+        //invalidate();
     }
 }

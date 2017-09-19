@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -22,7 +23,7 @@ import java.io.FileOutputStream;
 
 public class DrawView  extends View implements View.OnTouchListener, ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 64;
+    private static final int GRID_SIZE = 32;
     private static final String TAG = "DrawView";
     private short[][] grid;
     private double mHeightInPixels;
@@ -34,7 +35,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     // These are the four colors provided for painting.
     // If years of classic has taught me anything, these
     // are enough colors for anything. Anything at all.
-    public static final int COLOR_MAP[] = {0xFFFFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00, 0xFF8e5757, 0xFF005f00};
+    public static final int COLOR_MAP[] = {0x00FFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00, 0xFF8e5757, 0xFF005f00};
 
 
 
@@ -61,8 +62,8 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
         setOnTouchListener(this);
 
         setAnimating(true);
-        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        mPaint.setColor(Color.BLACK);
+        /*mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setColor(Color.BLACK);*/
 
     }
 
@@ -167,27 +168,29 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
                         * GRID_SIZE);
 
               //  Log.d(TAG, "You touched " + gridX + " " + gridY + "/" + me.getY());
-
-                if (gridX < GRID_SIZE && gridY < GRID_SIZE && gridX >= 0
-                        && gridY >= 0) {
-
-                    short oldColor = grid[gridX][gridY];
-                    grid[gridX][gridY] = mSelectedColor;
-
-                    // Don't double-draw or send messages where the color does not change
-                    boolean notSameSpot = (lastGridX != gridX) || (lastGridY != gridY);
-                    boolean notSameColor = oldColor != mSelectedColor;
-                    if (notSameSpot && notSameColor) {
-                        mListener.onDrawEvent(gridX, gridY, mSelectedColor);
-                        lastGridX = gridX;
-                        lastGridY = gridY;
-                    }
-                }
-
+                drawGridWithColor(gridX, gridY);
                 return true;
         }
 
         return false;
+    }
+
+     private void drawGridWithColor(int gridX, int gridY) {
+        if (gridX < GRID_SIZE && gridY < GRID_SIZE && gridX >= 0
+                && gridY >= 0) {
+
+            short oldColor = grid[gridX][gridY];
+            grid[gridX][gridY] = mSelectedColor;
+
+            // Don't double-draw or send messages where the color does not change
+            boolean notSameSpot = (lastGridX != gridX) || (lastGridY != gridY);
+            boolean notSameColor = oldColor != mSelectedColor;
+            if (notSameSpot && notSameColor) {
+                mListener.onDrawEvent(gridX, gridY, mSelectedColor);
+                lastGridX = gridX;
+                lastGridY = gridY;
+            }
+        }
     }
 
     /**
@@ -225,5 +228,4 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     public short getColor() {
         return mSelectedColor;
     }
-
 }

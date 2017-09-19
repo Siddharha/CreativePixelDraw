@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private static final int REQUEST_CODE = 100;
     private DrawView mDrawView;
     private DrawViewGrid drawViewGrid;
-    private Button btnClearDrawing,btnSaveDrawing;
+    private ImageButton btnClearDrawing,btnSaveDrawing;
     private SwitchCompat swShowGrid;
     private Pref _pref;
     private SwitchCompat swlockDraw;
@@ -224,11 +225,11 @@ if(swlockDraw.isChecked()) {
         zoomBar = (SeekBar)findViewById(R.id.zoomBar);
         swlockDraw = (SwitchCompat) findViewById(R.id.swlockDraw);
         flCanv = (CardView) findViewById(R.id.flCanv);
-        btnClearDrawing = (Button)findViewById(R.id.btnClearDrawing);
+        btnClearDrawing = (ImageButton) findViewById(R.id.btnClearDrawing);
         swShowGrid = (SwitchCompat)findViewById(R.id.swShowGrid);
         mDrawView = (DrawView) findViewById(R.id.drawView);
         drawViewGrid = (DrawViewGrid) findViewById(R.id.drawViewGrid);
-        btnSaveDrawing = (Button)findViewById(R.id.btnSaveDrawing);
+        btnSaveDrawing = (ImageButton)findViewById(R.id.btnSaveDrawing);
         mDrawView.setListener(this);
         mDrawView.setTouchEnabled(true);
         ((ColorChooser) findViewById(R.id.colorChooser))
