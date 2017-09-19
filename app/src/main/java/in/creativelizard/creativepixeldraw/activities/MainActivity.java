@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
         zoomBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                flCanv.setScaleX(1+(i));
-                flCanv.setScaleY(1+(i));
+                flCanv.setScaleX(1+(i/10));
+                flCanv.setScaleY(1+(i/10));
             }
 
             @Override

@@ -18,7 +18,7 @@ import static android.R.attr.lines;
 
 public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 16;
+    private static final int GRID_SIZE = 32;
     private static final String TAG = "DrawViewGrid";
 
     private short[][] grid;
@@ -112,13 +112,13 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
 
         for (int i = 0; i < GRID_SIZE; i++)
         {
-            canvas.drawLine(0, i * cellHeight, getWidth(), i * cellHeight,
+            canvas.drawLine(0, /*i * cellHeight*/sp(((float) (i + 1)) / GRID_SIZE), getWidth(), /*i * cellHeight*/sp(((float) (i + 1)) / GRID_SIZE),
                     mPaint);
         }
 
         for (int i = 0; i < GRID_SIZE; i++)
         {
-            canvas.drawLine(i * cellWidth, 0, i * cellWidth, getHeight(),
+            canvas.drawLine(/*i * cellWidth*/sp(((float) (i + 1)) / GRID_SIZE), 0, /*i* cellWidth*/sp(((float) (i + 1)) / GRID_SIZE), getHeight(),
                     mPaint);
         }
     }
