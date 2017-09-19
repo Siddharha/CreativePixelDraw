@@ -18,7 +18,7 @@ import static android.R.attr.lines;
 
 public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 32;
+    private static final int GRID_SIZE = 64;
     private static final String TAG = "DrawViewGrid";
 
     private short[][] grid;

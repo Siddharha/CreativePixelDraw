@@ -22,7 +22,7 @@ import java.io.FileOutputStream;
 
 public class DrawView  extends View implements View.OnTouchListener, ColorChooser.ColorChooserListener {
 
-    private static final int GRID_SIZE = 32;
+    private static final int GRID_SIZE = 64;
     private static final String TAG = "DrawView";
     private short[][] grid;
     private double mHeightInPixels;
@@ -166,7 +166,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
                 int gridY = (int) Math.floor(1.0 * me.getY() / mHeightInPixels
                         * GRID_SIZE);
 
-                Log.d(TAG, "You touched " + gridX + " " + gridY + "/" + me.getY());
+              //  Log.d(TAG, "You touched " + gridX + " " + gridY + "/" + me.getY());
 
                 if (gridX < GRID_SIZE && gridY < GRID_SIZE && gridX >= 0
                         && gridY >= 0) {

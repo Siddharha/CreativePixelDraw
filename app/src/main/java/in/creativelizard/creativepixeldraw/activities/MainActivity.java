@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private Pref _pref;
     private SwitchCompat swlockDraw;
     private LinearLayout llMain;
-    private FrameLayout flCanv,flMainCanvCont;
+    private FrameLayout flMainCanvCont;
+    private CardView flCanv;
     private SeekBar zoomBar;
     float dX, dY;
     @Override
@@ -122,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 flCanv.setScaleX(1+(i/10));
                 flCanv.setScaleY(1+(i/10));
+
+
             }
 
             @Override
@@ -131,25 +135,28 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                if(seekBar.getProgress()==0){
+                    flCanv.setX(flMainCanvCont.getX()+25);
+                    flCanv.setY(flMainCanvCont.getY()+25);
+                }
             }
         });
 
-        flCanv.setOnTouchListener(new View.OnTouchListener() {
+        /*flCanv*/flMainCanvCont.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
 if(swlockDraw.isChecked()) {
     switch (event.getAction() & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_DOWN:
-            dX = v.getX() - event.getRawX();
-            dY = v.getY() - event.getRawY();
+            dX = flCanv.getX() - event.getRawX();
+            dY = flCanv.getY() - event.getRawY();
             break;
         case MotionEvent.ACTION_MOVE:
 
 
-            v.setY(event.getRawY() + dY);
-            v.setX(event.getRawX() + dX);
+            flCanv.setY(event.getRawY() + dY);
+            flCanv.setX(event.getRawX() + dX);
             // .x(event.getRawX() + dX)
             break;
         case MotionEvent.ACTION_UP:
@@ -216,7 +223,7 @@ if(swlockDraw.isChecked()) {
         flMainCanvCont = (FrameLayout)findViewById(R.id.flMainCanvCont);
         zoomBar = (SeekBar)findViewById(R.id.zoomBar);
         swlockDraw = (SwitchCompat) findViewById(R.id.swlockDraw);
-        flCanv = (FrameLayout)findViewById(R.id.flCanv);
+        flCanv = (CardView) findViewById(R.id.flCanv);
         btnClearDrawing = (Button)findViewById(R.id.btnClearDrawing);
         swShowGrid = (SwitchCompat)findViewById(R.id.swShowGrid);
         mDrawView = (DrawView) findViewById(R.id.drawView);
