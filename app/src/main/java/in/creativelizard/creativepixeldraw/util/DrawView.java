@@ -107,7 +107,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
         // Now, draw with 0,0 in upper left and 9,9 in lower right
         for (int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
-                mPaint.setColor(((MainActivity)getContext()).COLOR_MAP[grid[x][y]]);
+                mPaint.setColor(((MainActivity)getContext()).COLOR_MAP.get(grid[x][y]));
 
                 mRect.top = sp(((float) y) / GRID_SIZE);
                 mRect.left = sp(((float) x) / GRID_SIZE);

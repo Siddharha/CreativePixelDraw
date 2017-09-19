@@ -31,6 +31,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import in.creativelizard.creativepixeldraw.util.ColorChooser;
 import in.creativelizard.creativepixeldraw.util.ConstantClass;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private CardView flCanv;
     private SeekBar zoomBar;
     private ColorChooser colorChooser;
-    public int COLOR_MAP[] = {0x00FFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00, 0xFF8e5757, 0xFF005f00};
+    public ArrayList<Integer> COLOR_MAP = new ArrayList();
     float dX, dY;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,12 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     }
 
     private void onActionPerform() {
+        COLOR_MAP.add(0x00FFFFFF);
+        COLOR_MAP.add(0xFF000000);
+        COLOR_MAP.add(0xFF0000FF);
+        COLOR_MAP.add(0xFFFF0000);
+        COLOR_MAP.add(0xFF00FF00);
+        COLOR_MAP.add(0xFF8e5757);
         btnClearDrawing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,7 +223,7 @@ if(swlockDraw.isChecked()) {
                             @Override
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                                // changeBackgroundColor(selectedColor);
-                               COLOR_MAP[mDrawView.getColor()] = selectedColor;
+                               COLOR_MAP.add(COLOR_MAP.size(),selectedColor);
                                 colorChooser.invalidate();
                             }
                         })

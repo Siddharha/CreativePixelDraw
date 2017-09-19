@@ -59,36 +59,38 @@ public class ColorChooser extends View implements View.OnTouchListener {
             return;
         }
 
-       // canvas.drawColor(0x000000);
+        // canvas.drawColor(0x000000);
 
         // draw each of the color swatches in the palette
-        for (int i = 0; i < ((MainActivity)getContext()).COLOR_MAP.length; i++) {
-            // Outer rectangle
-            mRect.top = (i * getHeight()) / ((MainActivity)getContext()).COLOR_MAP.length;
-            mRect.bottom = ((i + 1) * getHeight()) / ((MainActivity)getContext()).COLOR_MAP.length;
-            mRect.left = 0;
-            mRect.right = getWidth();
 
-            // Inner rectangle
-            mInnerRect.top = mRect.top + 10;
-            mInnerRect.bottom = mRect.bottom - 10;
-            mInnerRect.left = 10;
-            mInnerRect.right = mRect.right - 10;
+            for (int i = 0; i < ((MainActivity) getContext()).COLOR_MAP.size(); i++) {
+                // Outer rectangle
+                mRect.top = (i * getHeight()) / ((MainActivity) getContext()).COLOR_MAP.size();
+                mRect.bottom = ((i + 1) * getHeight()) / ((MainActivity) getContext()).COLOR_MAP.size();
+                mRect.left = 0;
+                mRect.right = getWidth();
 
-            if (mListener.getColor() == i) {
-                // Blue border
-                p.setColor(0xFFc2c2c2);
-                canvas.drawRect(mRect, p);
+                // Inner rectangle
+                mInnerRect.top = mRect.top + 10;
+                mInnerRect.bottom = mRect.bottom - 10;
+                mInnerRect.left = 10;
+                mInnerRect.right = mRect.right - 10;
 
-                // Color square
-                p.setColor(((MainActivity)getContext()).COLOR_MAP[i]);
-                canvas.drawRect(mInnerRect, p);
-            } else {
-                // Color not selected, no border
-                p.setColor(((MainActivity)getContext()).COLOR_MAP[i]);
-                canvas.drawRect(mRect, p);
+                if (mListener.getColor() == i) {
+                    // Blue border
+                    p.setColor(0xFFc2c2c2);
+                    canvas.drawRect(mRect, p);
+
+                    // Color square
+                    p.setColor(((MainActivity) getContext()).COLOR_MAP.get(i));
+                    canvas.drawRect(mInnerRect, p);
+                } else {
+                    // Color not selected, no border
+                    p.setColor(((MainActivity) getContext()).COLOR_MAP.get(i));
+                    canvas.drawRect(mRect, p);
+                }
             }
-        }
+
     }
 
     @Override
@@ -101,11 +103,17 @@ public class ColorChooser extends View implements View.OnTouchListener {
         }
 
         mListener.setColor((short) Math.floor(event.getY()
-                / ((getHeight() + 1.0) / ((MainActivity)getContext()).COLOR_MAP.length)));
+                / ((getHeight() + 1.0) / ((MainActivity)getContext()).COLOR_MAP.size())));
 
-        ((MainActivity)getContext()).selectedColor(((MainActivity)getContext()).COLOR_MAP[mListener.getColor()]);
+       /* ((MainActivity)getContext()).selectedColor(((MainActivity)getContext()).COLOR_MAP[mListener.getColor()]);*/
         invalidate();
 
         return false;
+    }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
+        super.onSizeChanged(w, h, oldw, oldh);
+        invalidate();
     }
 }
