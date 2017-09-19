@@ -17,6 +17,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import in.creativelizard.creativepixeldraw.activities.MainActivity;
+
 /**
  * Created by siddhartha on 14/9/17.
  */
@@ -35,7 +37,6 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     // These are the four colors provided for painting.
     // If years of classic has taught me anything, these
     // are enough colors for anything. Anything at all.
-    public static final int COLOR_MAP[] = {0x00FFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00, 0xFF8e5757, 0xFF005f00};
 
 
 
@@ -106,7 +107,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
         // Now, draw with 0,0 in upper left and 9,9 in lower right
         for (int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
-                mPaint.setColor(COLOR_MAP[grid[x][y]]);
+                mPaint.setColor(((MainActivity)getContext()).COLOR_MAP[grid[x][y]]);
 
                 mRect.top = sp(((float) y) / GRID_SIZE);
                 mRect.left = sp(((float) x) / GRID_SIZE);

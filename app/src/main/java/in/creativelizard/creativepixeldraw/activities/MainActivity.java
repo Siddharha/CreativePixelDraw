@@ -1,8 +1,10 @@
 package in.creativelizard.creativepixeldraw.activities;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +24,11 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -33,20 +40,22 @@ import in.creativelizard.creativepixeldraw.util.DrawViewGrid;
 import in.creativelizard.creativepixeldraw.util.GridView;
 import in.creativelizard.creativepixeldraw.util.Pref;
 
-public class MainActivity extends AppCompatActivity implements DrawView.DrawViewListener {
+public class MainActivity extends AppCompatActivity implements DrawView.DrawViewListener, ColorChooser.ColorChooserListener{
 
     private static final String TAG = "response";
     private static final int REQUEST_CODE = 100;
     private DrawView mDrawView;
     private DrawViewGrid drawViewGrid;
-    private ImageButton btnClearDrawing,btnSaveDrawing;
+    private ImageButton btnClearDrawing,btnSaveDrawing,colorPicker;
     private SwitchCompat swShowGrid;
     private Pref _pref;
     private SwitchCompat swlockDraw;
     private LinearLayout llMain;
-    private FrameLayout flMainCanvCont;
+    public FrameLayout flMainCanvCont,flCurrentColorIndicator;
     private CardView flCanv;
     private SeekBar zoomBar;
+    private ColorChooser colorChooser;
+    public int COLOR_MAP[] = {0x00FFFFFF,0xFF000000, 0xFF0000FF, 0xFFFF0000, 0xFF00FF00, 0xFF8e5757, 0xFF005f00};
     float dX, dY;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
         }else {
             mDrawView.setTouchEnabled(true);
         }
+
+
     }
 
     private void onActionPerform() {
@@ -181,6 +192,44 @@ if(swlockDraw.isChecked()) {
             }
         });
 
+        colorPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ColorPickerDialogBuilder
+                        .with(MainActivity.this)
+                        .setTitle("Choose color")
+                        .initialColor(Color.BLACK)
+                        .showAlphaSlider(true)
+                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                        .density(12)
+                        .setOnColorSelectedListener(new OnColorSelectedListener() {
+                            @Override
+                            public void onColorSelected(int selectedColor) {
+                              //  toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
+                                flCurrentColorIndicator.setBackgroundColor(selectedColor);
+                              //  mDrawView.COLOR_MAP[];
+
+
+                            }
+                        })
+                        .setPositiveButton("ok", new ColorPickerClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                               // changeBackgroundColor(selectedColor);
+                               COLOR_MAP[1] = selectedColor;
+                                colorChooser.invalidate();
+                            }
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .build()
+                        .show();
+            }
+        });
+
     }
 
     public void saveImage() {
@@ -230,13 +279,30 @@ if(swlockDraw.isChecked()) {
         mDrawView = (DrawView) findViewById(R.id.drawView);
         drawViewGrid = (DrawViewGrid) findViewById(R.id.drawViewGrid);
         btnSaveDrawing = (ImageButton)findViewById(R.id.btnSaveDrawing);
+        colorPicker = (ImageButton)findViewById(R.id.colorPicker);
+        flCurrentColorIndicator = (FrameLayout)findViewById(R.id.flCurrentColorIndicator);
         mDrawView.setListener(this);
         mDrawView.setTouchEnabled(true);
-        ((ColorChooser) findViewById(R.id.colorChooser))
-                .setDrawView(((DrawView) findViewById(R.id.drawView)));
+        colorChooser = (ColorChooser) findViewById(R.id.colorChooser);
+        colorChooser.setDrawView(((DrawView) findViewById(R.id.drawView)));
     }
     @Override
     public void onDrawEvent(int gridX, int gridY, short colorIndex) {
 
+    }
+
+
+    public void selectedColor(int color) {
+        flCurrentColorIndicator.setBackgroundColor(color);
+    }
+
+    @Override
+    public void setColor(short color) {
+
+    }
+
+    @Override
+    public short getColor() {
+        return 0;
     }
 }

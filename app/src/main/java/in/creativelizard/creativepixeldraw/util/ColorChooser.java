@@ -8,6 +8,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
+
+import in.creativelizard.creativepixeldraw.activities.MainActivity;
 
 /**
  * Created by siddhartha on 14/9/17.
@@ -37,6 +40,11 @@ public class ColorChooser extends View implements View.OnTouchListener {
 
         setOnTouchListener(this);
     }
+    public ColorChooser(Context context) {
+        super(context);
+
+        setOnTouchListener(this);
+    }
 
     public void setDrawView(ColorChooserListener ccl) {
         mListener = ccl;
@@ -54,10 +62,10 @@ public class ColorChooser extends View implements View.OnTouchListener {
        // canvas.drawColor(0x000000);
 
         // draw each of the color swatches in the palette
-        for (int i = 1; i < DrawView.COLOR_MAP.length; i++) {
+        for (int i = 0; i < ((MainActivity)getContext()).COLOR_MAP.length; i++) {
             // Outer rectangle
-            mRect.top = (i * getHeight()) / DrawView.COLOR_MAP.length;
-            mRect.bottom = ((i + 1) * getHeight()) / DrawView.COLOR_MAP.length;
+            mRect.top = (i * getHeight()) / ((MainActivity)getContext()).COLOR_MAP.length;
+            mRect.bottom = ((i + 1) * getHeight()) / ((MainActivity)getContext()).COLOR_MAP.length;
             mRect.left = 0;
             mRect.right = getWidth();
 
@@ -73,11 +81,11 @@ public class ColorChooser extends View implements View.OnTouchListener {
                 canvas.drawRect(mRect, p);
 
                 // Color square
-                p.setColor(DrawView.COLOR_MAP[i]);
+                p.setColor(((MainActivity)getContext()).COLOR_MAP[i]);
                 canvas.drawRect(mInnerRect, p);
             } else {
                 // Color not selected, no border
-                p.setColor(DrawView.COLOR_MAP[i]);
+                p.setColor(((MainActivity)getContext()).COLOR_MAP[i]);
                 canvas.drawRect(mRect, p);
             }
         }
@@ -88,12 +96,14 @@ public class ColorChooser extends View implements View.OnTouchListener {
 
         if (mListener == null) {
             Log.d(TAG, "You appear to have not set a ColorChooser listener.");
+
             return false;
         }
 
         mListener.setColor((short) Math.floor(event.getY()
-                / ((getHeight() + 1.0) / DrawView.COLOR_MAP.length)));
+                / ((getHeight() + 1.0) / ((MainActivity)getContext()).COLOR_MAP.length)));
 
+        ((MainActivity)getContext()).selectedColor(((MainActivity)getContext()).COLOR_MAP[mListener.getColor()]);
         invalidate();
 
         return false;
