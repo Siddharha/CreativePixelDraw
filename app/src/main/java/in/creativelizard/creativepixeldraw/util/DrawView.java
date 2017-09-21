@@ -116,7 +116,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
                     if(arrayListColorIndex.size()>1) {
                         if (!arrayListColorIndex.get(arrayListColorIndex.size()-1).equals(((MainActivity) getContext()).COLOR_MAP.get(1))) {
                             arrayListColorIndex.add(((MainActivity) getContext()).COLOR_MAP.get(1));
-                            Toast.makeText(getContext(), "SIZE: " + arrayListColorIndex.size(), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getContext(), "SIZE: " + arrayListColorIndex.size(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
                         arrayListColorIndex.add(((MainActivity) getContext()).COLOR_MAP.get(1));
