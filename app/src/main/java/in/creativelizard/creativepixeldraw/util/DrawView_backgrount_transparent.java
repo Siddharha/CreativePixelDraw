@@ -1,21 +1,14 @@
 package in.creativelizard.creativepixeldraw.util;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import in.creativelizard.creativepixeldraw.activities.MainActivity;
@@ -24,7 +17,7 @@ import in.creativelizard.creativepixeldraw.activities.MainActivity;
  * Created by siddhartha on 14/9/17.
  */
 
-public class DrawView  extends View implements View.OnTouchListener, ColorChooser.ColorChooserListener {
+public class DrawView_backgrount_transparent extends View implements View.OnTouchListener, ColorChooser.ColorChooserListener {
 
     private static final int GRID_SIZE = 32;
     private static final String TAG = "DrawView";
@@ -46,16 +39,16 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     public interface DrawViewListener {
         void onDrawEvent(int gridX, int gridY, short colorIndex);
     }
-    public DrawView(Context context, AttributeSet attrs) {
+    public DrawView_backgrount_transparent(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
 
     }
-    public DrawView(Context context) {
+    public DrawView_backgrount_transparent(Context context) {
         super(context);
         init();
     }
-    public DrawView(Context context, AttributeSet attrs, int defStyle) {
+    public DrawView_backgrount_transparent(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -106,30 +99,32 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
         // Assume this is a square (as we will make it so in onMeasure()
         // and figure out how many pixels there are.
         mHeightInPixels = this.getHeight();
-
+        mPaint.setColor(0xffc2c2c2);
         // Now, draw with 0,0 in upper left and 9,9 in lower right
         for (int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
-                if(arrayListColorIndex.size()==0) {
-                    arrayListColorIndex.add(0x00ffffff);
+                if((y%2)!=0) {
+                    if ((x % 2) == 0) {
+                        mRect.top = sp(((float) y) / GRID_SIZE);
+                        mRect.left = sp(((float) x) / GRID_SIZE);
+                        mRect.right = sp(((float) (x + 1)) / GRID_SIZE);
+                        mRect.bottom = sp(((float) (y + 1)) / GRID_SIZE);
+
+
+                        canvas.drawRect(mRect, mPaint);
+                    }
                 }else {
-                    if(arrayListColorIndex.size()>1) {
-                        if (!arrayListColorIndex.get(arrayListColorIndex.size()-1).equals(((MainActivity) getContext()).COLOR_MAP.get(1))) {
-                            arrayListColorIndex.add(((MainActivity) getContext()).COLOR_MAP.get(1));
-                            Toast.makeText(getContext(), "SIZE: " + arrayListColorIndex.size(), Toast.LENGTH_SHORT).show();
-                        }
-                    }else {
-                        arrayListColorIndex.add(((MainActivity) getContext()).COLOR_MAP.get(1));
+                    if ((x % 2) != 0) {
+                        mRect.top = sp(((float) y) / GRID_SIZE);
+                        mRect.left = sp(((float) x) / GRID_SIZE);
+                        mRect.right = sp(((float) (x + 1)) / GRID_SIZE);
+                        mRect.bottom = sp(((float) (y + 1)) / GRID_SIZE);
+
+
+                        canvas.drawRect(mRect, mPaint);
                     }
                 }
-                mPaint.setColor(arrayListColorIndex.get(grid[x][y]));
-                mRect.top = sp(((float) y) / GRID_SIZE);
-                mRect.left = sp(((float) x) / GRID_SIZE);
-                mRect.right = sp(((float) (x + 1)) / GRID_SIZE);
-                mRect.bottom = sp(((float) (y + 1)) / GRID_SIZE);
 
-
-                canvas.drawRect(mRect, mPaint);
             }
         }
 

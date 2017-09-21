@@ -16,16 +16,13 @@ import static android.R.attr.lines;
  * Created by siddhartha on 14/9/17.
  */
 
-public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserListener {
+public class DrawViewGrid extends View {
 
     private static final int GRID_SIZE = 32;
     private static final String TAG = "DrawViewGrid";
 
-    private short[][] grid;
     private double mHeightInPixels;
-    private short mSelectedColor = 1;
-    private int cellHeight;
-    private int cellWidth;
+
 
     // These are the four colors provided for painting.
     // If years of classic has taught me anything, these
@@ -36,8 +33,6 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
 
     // Some temporary variables so we don't allocate while rendering
     public Paint mPaint = new Paint();
-
-    private Boolean keepAnimating = false;
 
     public DrawViewGrid(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -54,18 +49,15 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
     }
     private void init() {
         mHeightInPixels = this.getHeight();
-        grid = new short[GRID_SIZE][GRID_SIZE];
         setAnimating(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.BLACK);
-        cellWidth = super.getWidth() / GRID_SIZE;
-        cellHeight = super.getHeight() / GRID_SIZE;
+
 
     }
 
 
     public void setAnimating(Boolean val) {
-        keepAnimating = val;
         if (val) {
             invalidate();
         }
@@ -107,7 +99,6 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
         }*/
 
         mHeightInPixels = this.getHeight();
-        canvas.drawColor(Color.TRANSPARENT);
 
         for (int i = 0; i < GRID_SIZE; i++)
         {
@@ -120,6 +111,7 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
             canvas.drawLine(/*i * cellWidth*/sp(((float) (i + 1)) / GRID_SIZE), 0, /*i* cellWidth*/sp(((float) (i + 1)) / GRID_SIZE), getHeight(),
                     mPaint);
         }
+        //canvas.drawColor(Color.TRANSPARENT);
     }
 
     @Override
@@ -141,36 +133,5 @@ public class DrawViewGrid extends DrawView implements ColorChooser.ColorChooserL
         }
 
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    /**
-     * Paint a pixel with the currently selected color.
-     *
-     * @param gridX      the column of the pixel to paint.
-     * @param gridY      the row of the pixel to paint.
-     * @param colorIndex the index into the color array to paint with.
-     */
-    public void setMacroPixel(int gridX, int gridY, short colorIndex) {
-        // paint that pixel with the currently selected color
-        grid[gridX][gridY] = colorIndex;
-    }
-
-    @Override
-    public void setColor(short color) {
-        mSelectedColor = color;
-    }
-
-    @Override
-    public short getColor() {
-        return mSelectedColor;
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        cellWidth = super.getWidth() / GRID_SIZE;
-        cellHeight = super.getHeight() / GRID_SIZE;
-
-        //invalidate();
     }
 }

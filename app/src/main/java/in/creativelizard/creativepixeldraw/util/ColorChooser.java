@@ -19,7 +19,6 @@ import in.creativelizard.creativepixeldraw.activities.MainActivity;
 public class ColorChooser extends View implements View.OnTouchListener {
 
     private static final String TAG = "ColorChooser";
-
     // Allow me to retrieve a list of colors, and someone to send selection events to.
     public interface ColorChooserListener {
         // Set selected color
@@ -34,7 +33,6 @@ public class ColorChooser extends View implements View.OnTouchListener {
     private final Paint p = new Paint();
     private final RectF mRect = new RectF();
     private final RectF mInnerRect = new RectF();
-
     public ColorChooser(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -102,18 +100,17 @@ public class ColorChooser extends View implements View.OnTouchListener {
             return false;
         }
 
-        mListener.setColor((short) Math.floor(event.getY()
-                / ((getHeight() + 1.0) / ((MainActivity)getContext()).COLOR_MAP.size())));
-
+        short colorIndexForChooser = (short) Math.floor(event.getY()/ ((getHeight() + 1.0) / ((MainActivity)getContext()).COLOR_MAP.size()));
+        if(colorIndexForChooser==0) {
+            /*mListener.setColor((short) Math.floor(event.getY()
+                    / ((getHeight() + 1.0) / ((MainActivity) getContext()).COLOR_MAP.size())));*/
+            ((MainActivity)getContext()).COLOR_MAP.remove(((MainActivity)getContext()).COLOR_MAP.size()-1);
+            ((MainActivity)getContext()).COLOR_MAP.add(((MainActivity)getContext()).COLOR_MAP.size(),0x00ffffff);
+            invalidate();
+        }
        /* ((MainActivity)getContext()).selectedColor(((MainActivity)getContext()).COLOR_MAP[mListener.getColor()]);*/
-        invalidate();
+
 
         return false;
-    }
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
-        super.onSizeChanged(w, h, oldw, oldh);
-        invalidate();
     }
 }

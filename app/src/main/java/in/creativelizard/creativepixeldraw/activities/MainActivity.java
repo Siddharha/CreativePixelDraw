@@ -48,12 +48,12 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private static final int REQUEST_CODE = 100;
     private DrawView mDrawView;
     private DrawViewGrid drawViewGrid;
-    private ImageButton btnClearDrawing,btnSaveDrawing,colorPicker;
+    private ImageButton btnClearDrawing,btnSaveDrawing,colorPicker,drawErs;
     private SwitchCompat swShowGrid;
     private Pref _pref;
     private SwitchCompat swlockDraw;
     private LinearLayout llMain;
-    public FrameLayout flMainCanvCont,flCurrentColorIndicator;
+    public FrameLayout flMainCanvCont;
     private CardView flCanv;
     private SeekBar zoomBar;
     private ColorChooser colorChooser;
@@ -211,7 +211,6 @@ if(swlockDraw.isChecked()) {
                             @Override
                             public void onColorSelected(int selectedColor) {
                               //  toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
-                                flCurrentColorIndicator.setBackgroundColor(selectedColor);
                               //  mDrawView.COLOR_MAP[];
 
 
@@ -235,6 +234,17 @@ if(swlockDraw.isChecked()) {
                         })
                         .build()
                         .show();
+            }
+        });
+
+        drawErs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                COLOR_MAP.remove(COLOR_MAP.size()-1);
+                COLOR_MAP.add(COLOR_MAP.size(),0x00ffffff);
+                // mDrawView.setMacroPixel(-1,-1,(short)2);
+                colorChooser.invalidate();
+                mDrawView.invalidate();
             }
         });
 
@@ -285,10 +295,10 @@ if(swlockDraw.isChecked()) {
         btnClearDrawing = (ImageButton) findViewById(R.id.btnClearDrawing);
         swShowGrid = (SwitchCompat)findViewById(R.id.swShowGrid);
         mDrawView = (DrawView) findViewById(R.id.drawView);
+        drawErs = (ImageButton)findViewById(R.id.drawErs);
         drawViewGrid = (DrawViewGrid) findViewById(R.id.drawViewGrid);
         btnSaveDrawing = (ImageButton)findViewById(R.id.btnSaveDrawing);
         colorPicker = (ImageButton)findViewById(R.id.colorPicker);
-        flCurrentColorIndicator = (FrameLayout)findViewById(R.id.flCurrentColorIndicator);
         mDrawView.setListener(this);
         mDrawView.setTouchEnabled(true);
         colorChooser = (ColorChooser) findViewById(R.id.colorChooser);
@@ -300,9 +310,6 @@ if(swlockDraw.isChecked()) {
     }
 
 
-    public void selectedColor(int color) {
-        flCurrentColorIndicator.setBackgroundColor(color);
-    }
 
     @Override
     public void setColor(short color) {
