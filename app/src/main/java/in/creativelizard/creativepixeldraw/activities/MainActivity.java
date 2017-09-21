@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private ColorChooser colorChooser;
     public ArrayList<Integer> COLOR_MAP = new ArrayList();
     float dX, dY;
+    int COLOR_FLAG = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,10 +90,6 @@ public class MainActivity extends AppCompatActivity implements DrawView.DrawView
     private void onActionPerform() {
         COLOR_MAP.add(0x00FFFFFF);
         COLOR_MAP.add(0xFF000000);
-        COLOR_MAP.add(0xFF0000FF);
-        COLOR_MAP.add(0xFFFF0000);
-        COLOR_MAP.add(0xFF00FF00);
-        COLOR_MAP.add(0xFF8e5757);
         btnClearDrawing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,8 +221,11 @@ if(swlockDraw.isChecked()) {
                             @Override
                             public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
                                // changeBackgroundColor(selectedColor);
+                                COLOR_MAP.remove(COLOR_MAP.size()-1);
                                COLOR_MAP.add(COLOR_MAP.size(),selectedColor);
+                               // mDrawView.setMacroPixel(-1,-1,(short)2);
                                 colorChooser.invalidate();
+                                mDrawView.invalidate();
                             }
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -312,4 +313,5 @@ if(swlockDraw.isChecked()) {
     public short getColor() {
         return 0;
     }
+
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import in.creativelizard.creativepixeldraw.activities.MainActivity;
 
@@ -33,6 +34,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
     private int lastGridX = -1;
     private int lastGridY = -1;
     private DrawViewListener mListener;
+    private ArrayList<Integer> arrayListColorIndex;
 
     // These are the four colors provided for painting.
     // If years of classic has taught me anything, these
@@ -58,6 +60,7 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
         init();
     }
     private void init() {
+        arrayListColorIndex = new ArrayList<>();
         grid = new short[GRID_SIZE][GRID_SIZE];
 
         setOnTouchListener(this);
@@ -107,8 +110,19 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
         // Now, draw with 0,0 in upper left and 9,9 in lower right
         for (int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
-                mPaint.setColor(((MainActivity)getContext()).COLOR_MAP.get(grid[x][y]));
-
+                if(arrayListColorIndex.size()==0) {
+                    arrayListColorIndex.add(0xffffffff);
+                }else {
+                    if(arrayListColorIndex.size()>1) {
+                        if (!arrayListColorIndex.get(arrayListColorIndex.size()-1).equals(((MainActivity) getContext()).COLOR_MAP.get(1))) {
+                            arrayListColorIndex.add(((MainActivity) getContext()).COLOR_MAP.get(1));
+                            Toast.makeText(getContext(), "SIZE: " + arrayListColorIndex.size(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        arrayListColorIndex.add(((MainActivity) getContext()).COLOR_MAP.get(1));
+                    }
+                }
+                mPaint.setColor(arrayListColorIndex.get(grid[x][y]));
                 mRect.top = sp(((float) y) / GRID_SIZE);
                 mRect.left = sp(((float) x) / GRID_SIZE);
                 mRect.right = sp(((float) (x + 1)) / GRID_SIZE);
@@ -181,13 +195,13 @@ public class DrawView  extends View implements View.OnTouchListener, ColorChoose
                 && gridY >= 0) {
 
             short oldColor = grid[gridX][gridY];
-            grid[gridX][gridY] = mSelectedColor;
+            grid[gridX][gridY] = (short) (arrayListColorIndex.size()-1);
 
             // Don't double-draw or send messages where the color does not change
             boolean notSameSpot = (lastGridX != gridX) || (lastGridY != gridY);
-            boolean notSameColor = oldColor != mSelectedColor;
+            boolean notSameColor = oldColor != (short) (arrayListColorIndex.size()-1);
             if (notSameSpot && notSameColor) {
-                mListener.onDrawEvent(gridX, gridY, mSelectedColor);
+                mListener.onDrawEvent(gridX,gridY,(short) (arrayListColorIndex.size()-1));
                 lastGridX = gridX;
                 lastGridY = gridY;
             }
