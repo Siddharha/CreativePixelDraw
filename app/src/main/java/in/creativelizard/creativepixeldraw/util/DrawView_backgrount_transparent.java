@@ -99,7 +99,7 @@ public class DrawView_backgrount_transparent extends View implements View.OnTouc
         // Assume this is a square (as we will make it so in onMeasure()
         // and figure out how many pixels there are.
         mHeightInPixels = this.getHeight();
-        mPaint.setColor(0xffc2c2c2);
+        mPaint.setColor(0xffe8e8e8);
         // Now, draw with 0,0 in upper left and 9,9 in lower right
         for (int x = 0; x < GRID_SIZE; x++) {
             for (int y = 0; y < GRID_SIZE; y++) {
